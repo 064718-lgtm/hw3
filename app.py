@@ -137,7 +137,21 @@ def main():
         ]
         for s in samples:
             if st.button(s, key=s[:20]):
-                st.session_state.history.insert(0, {"text": s, "pred": "(sample)", "conf": None})
+                # If a model is loaded, classify the sample immediately and show result.
+                if model:
+                    try:
+                        pred, conf, probs = classify(model, s)
+                        color = "red" if str(pred).lower() == "spam" else "green"
+                        st.markdown(f"**Sample prediction:** <span style='color:{color}'>{pred}</span>", unsafe_allow_html=True)
+                        if conf is not None:
+                            st.write(f"Confidence: {conf:.1%}")
+                        st.session_state.history.insert(0, {"text": s, "pred": str(pred), "conf": conf})
+                    except Exception as e:
+                        st.error(f"Failed to classify sample: {e}")
+                        st.session_state.history.insert(0, {"text": s, "pred": "(error)", "conf": None})
+                else:
+                    st.warning("No model loaded — click Train or upload a model to get real predictions.")
+                    st.session_state.history.insert(0, {"text": s, "pred": "(sample)", "conf": None})
 
         st.markdown("---")
         st.subheader("Model info")
