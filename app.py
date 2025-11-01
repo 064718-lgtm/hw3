@@ -132,7 +132,7 @@ def main():
         st.header("Samples & History")
         st.write("Try sample messages")
         samples: List[str] = [
-            "Win a $1000 gift card now! Click here.",
+            "Urgent UR awarded a complimentary trip to EuroDisinc Trav, Aco&Entry41 Or £1000. To claim txt DIS to 87121 18+6*£1.50(moreFrmMob. ShrAcomOrSglSuplt)10, LS1 3AJ.",
             "Are we still on for lunch tonight?",
         ]
         for s in samples:
