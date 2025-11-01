@@ -1,3 +1,64 @@
+# Spam Classification (hw3)
+
+This repository contains a small SMS spam classification demo (TF-IDF + LogisticRegression). It includes training and prediction scripts and a Streamlit web UI.
+
+Demo site
+-----------------
+- Live demo (deployed): https://9fsq4e88xenv3y9i3d2xxk.streamlit.app/
+
+Quick overview
+-----------------
+- `ml/train.py` — training script. Produces a joblib model (default path: `models/spam_baseline.joblib`).
+- `ml/predict.py` — simple CLI to load the trained model and run predictions.
+- `data/ingest.py` — dataset downloader for the SMS spam CSV used in the baseline.
+- `app.py` — Streamlit application (single-file) for interactive single/batch prediction, training-on-demand, and model upload.
+
+Requirements
+-----------------
+Install the Python dependencies (recommended inside a virtualenv):
+
+```powershell
+python -m venv .venv
+.venv\Scripts\activate
+python -m pip install -r requirements.txt
+```
+
+Quick start (local)
+-----------------
+1. Train the baseline model (creates `models/spam_baseline.joblib`):
+
+```powershell
+python ml/train.py --output models/spam_baseline.joblib
+```
+
+2. Run the Streamlit app locally:
+
+```powershell
+streamlit run app.py
+```
+
+The app also supports uploading an existing joblib model file and batch predictions via CSV (a `text` column is expected).
+
+Dataset
+-----------------
+The baseline uses the Packt SMS spam dataset (raw CSV hosted in the original project). See `data/ingest.py` for the ingest URL used by the training script.
+
+Notes
+-----------------
+- Model artifact `models/spam_baseline.joblib` is not checked into the repo by default. You can train it locally or upload one through the app.
+- If you deploy the app (for example to Streamlit Cloud), point the app to the model path or use the app's Train button to create the model on the deployed instance (note: training can be slow on free tiers).
+
+Contributing
+-----------------
+If you want enhancements (UI polish, evaluation panels, CI checks), open an issue or create a PR. I can add a GitHub Actions workflow to run syntax checks on push if you'd like.
+
+License
+-----------------
+MIT-style (see repository license or add one).
+
+Contact
+-----------------
+If you need help running the demo locally or want me to run training and a local smoke test, tell me and I'll run the steps and post logs.
 # Spam Classification & Project README
 
 This repository contains an OpenSpec-driven proposal and a minimal implementation for a spam classification baseline (Phase 1). The baseline trains a Logistic Regression model using TF-IDF features and provides a small Streamlit UI for interactive prediction.
